@@ -67,31 +67,27 @@ void Billboards::update(BillboardsData &data)
 
     QVector3D normalColor = vectorFromColor(QColor("#1f78b4"));
 
-    for(int i=0; i<data.positions.size(); i++) {
+    for(unsigned int i=0; i<data.positions.size(); i++) {
         // NOTE: Y and Z are swapped!
         QVector2D &position = positions[i];
         float cosTheta = cos(rotation[i]);
         float sinTheta = sin(rotation[i]);
 
-        //m_vertices[4*i + 0].position = position + dl;
         m_vertices[4*i + 0].position = position;
         m_vertices[4*i + 0].position[0] += dl[0]*cosTheta - dl[1]*sinTheta;
         m_vertices[4*i + 0].position[1] += dl[0]*sinTheta + dl[1]*cosTheta;
         m_vertices[4*i + 0].textureCoord= QVector2D(0,1);
 
-        // m_vertices[4*i + 0].position = position + dr;
         m_vertices[4*i + 1].position = position;
         m_vertices[4*i + 1].position[0] += dr[0]*cosTheta - dr[1]*sinTheta;
         m_vertices[4*i + 1].position[1] += dr[0]*sinTheta + dr[1]*cosTheta;
         m_vertices[4*i + 1].textureCoord= QVector2D(1,1);
 
-        // m_vertices[4*i + 2].position = position + ur;
         m_vertices[4*i + 2].position = position;
         m_vertices[4*i + 2].position[0] += ur[0]*cosTheta - ur[1]*sinTheta;
         m_vertices[4*i + 2].position[1] += ur[0]*sinTheta + ur[1]*cosTheta;
         m_vertices[4*i + 2].textureCoord= QVector2D(1,0);
 
-        // m_vertices[4*i + 3].position = position + ul;
         m_vertices[4*i + 3].position = position;
         m_vertices[4*i + 3].position[0] += ul[0]*cosTheta - ul[1]*sinTheta;
         m_vertices[4*i + 3].position[1] += ul[0]*sinTheta + ul[1]*cosTheta;
@@ -144,9 +140,8 @@ void Billboards::createShaderProgram() {
                                            "varying highp vec2 coords;\n"
                                            "varying highp vec3 color;\n"
                                            "void main() {\n"
-                                           "    float alpha = color.r;\n"
-                                           "    if(alpha > 0.9) { discard; }\n"
                                            "    gl_FragColor = texture2D(texture, coords.st);\n"
+                                           "    if(gl_FragColor.r > 0.9) { discard; }\n"
                                            "}");
 
 

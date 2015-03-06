@@ -10,7 +10,7 @@ Simulator::Simulator(QObject *parent) :
     QObject(parent)
 {
     dt = 0.01;
-    createParticles(10);
+    createParticles(100000);
 }
 
 
