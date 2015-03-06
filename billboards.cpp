@@ -67,8 +67,6 @@ void Billboards::update(BillboardsData &data)
 
     QVector3D normalColor = vectorFromColor(QColor("#1f78b4"));
 
-    float piFourth = M_PI*0.25;
-
     for(int i=0; i<data.positions.size(); i++) {
         // NOTE: Y and Z are swapped!
         QVector2D &position = positions[i];
@@ -146,6 +144,8 @@ void Billboards::createShaderProgram() {
                                            "varying highp vec2 coords;\n"
                                            "varying highp vec3 color;\n"
                                            "void main() {\n"
+                                           "    float alpha = color.r;\n"
+                                           "    if(alpha > 0.9) { discard; }\n"
                                            "    gl_FragColor = texture2D(texture, coords.st);\n"
                                            "}");
 

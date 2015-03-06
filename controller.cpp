@@ -109,7 +109,7 @@ void Controller::updateData() {
     m_visualData.billboardsData.positions = m_simulator.pos;
     m_visualData.billboardsData.rotation.resize(m_simulator.pos.size());
     for(unsigned int i=0; i<m_simulator.vel.size(); i++) {
-        float rot = atan2(-m_simulator.vel[i][0], -m_simulator.vel[i][1]);
+        float rot = atan2(-m_simulator.vel[i][1], -m_simulator.vel[i][0]);
         m_visualData.billboardsData.rotation[i] = rot;
     }
 }
