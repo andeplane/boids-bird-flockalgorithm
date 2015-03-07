@@ -5,8 +5,9 @@
 #include <QtQuick/QQuickView>
 #include <QSurfaceFormat>
 #include <QGLFormat>
+#include <QScreen>
 #include <QOpenGLContext>
-
+#include <QDesktopWidget>
 #include <iostream>
 #include <QFontDatabase>
 

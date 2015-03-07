@@ -65,6 +65,7 @@ Controller::Controller()
     m_simulator.moveToThread(&m_simulatorWorker);
     connect(this, &Controller::requestStep, &m_simulator, &Simulator::step);
     connect(&m_simulator, &Simulator::stepCompleted, this, &Controller::finalizeStep);
+    connect(this, &Controller::mousePositionChanged, &m_simulator, &Simulator::setMousePosition);
     m_simulatorWorker.start();
     m_timer.start();
 }

@@ -57,6 +57,7 @@ class Controller : public QQuickFramebufferObject
     Q_PROPERTY(bool running READ running WRITE setRunning NOTIFY runningChanged)
     Q_PROPERTY(bool previousStepCompleted READ previousStepCompleted NOTIFY previousStepCompletedChanged)
     Q_PROPERTY(bool renderParticles READ renderParticles WRITE setRenderParticles NOTIFY renderParticlesChanged)
+    Q_PROPERTY(QVector2D mousePosition READ mousePosition WRITE setMousePosition NOTIFY mousePositionChanged)
 public:
     Controller();
     ~Controller();
@@ -75,10 +76,22 @@ public:
         return m_renderParticles;
     }
 
+    QVector2D mousePosition() const
+    {
+        return m_mousePosition;
+    }
+
 public slots:
     void setRunning(bool arg);
     void setPreviousStepCompleted(bool arg);
     void setSimulatorOutputDirty(bool arg);
+    void createBird() {
+        m_simulator.createBird();
+    }
+
+    void addObstacle(QVector2D pos) {
+        m_simulator.addObstacle(pos);
+    }
 
     void setRenderParticles(bool arg)
     {
@@ -87,6 +100,15 @@ public slots:
 
         m_renderParticles = arg;
         emit renderParticlesChanged(arg);
+    }
+
+    void setMousePosition(QVector2D arg)
+    {
+        if (m_mousePosition == arg)
+            return;
+
+        m_mousePosition = arg;
+        emit mousePositionChanged(arg);
     }
 
 private slots:
@@ -98,6 +120,8 @@ signals:
     void requestStep();
 
     void renderParticlesChanged(bool arg);
+
+    void mousePositionChanged(QVector2D arg);
 
 private slots:
     void handleWindowChanged(QQuickWindow *win);
@@ -124,5 +148,6 @@ private:
     void scalePosition(QVector2D &position);
     void updateData();
     bool m_renderParticles;
+    QVector2D m_mousePosition;
 };
 }
