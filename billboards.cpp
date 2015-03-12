@@ -12,6 +12,9 @@ Billboards::Billboards() :
 {
     generateVBOs();
     uploadTexture();
+    GLint max;
+    m_funcs->glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max);
+    qDebug() << "Max texture size: " << max;
 }
 
 Billboards::~Billboards()
@@ -55,7 +58,7 @@ void Billboards::update(BillboardsData &data)
     up.setX(0.0);
     up.setY(1.0);
 
-    float scale = 0.05;
+    float scale = 0.03;
     QVector2D ul = (0.5*up - 0.5*right)*scale;
     QVector2D ur = (0.5*up + 0.5*right)*scale;
     QVector2D dl = (-0.5*up - 0.5*right)*scale;

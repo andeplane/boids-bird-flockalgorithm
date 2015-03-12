@@ -9,25 +9,27 @@ using std::cout; using std::endl; using std::function;
 Simulator::Simulator(QObject *parent) :
     QObject(parent)
 {
-    scale = 0.01;
+    scale = 3.0;
     separationDistance *= scale;
     cohesionDistance *= scale;
     alignmentDistance *= scale;
     mouseDistance *= scale;
+
     //    mouseForceMagnitude *= scale;
-    //    separationForceMagnitude *= scale;
-    //    cohesionForceMagnitude *= scale;
-    //    alignmentForceMagnitude *= scale;
-    accelerationLimit = 0.1;
-    speedLimit = 0.5;
+        separationForceMagnitude *= 5;
+        cohesionForceMagnitude *= 10;
+        alignmentForceMagnitude *= 10;
+
+    accelerationLimit = 0.0;
+    speedLimit = 0.25;
 
     qDebug() << "Separation distance: " << separationDistance;
     qDebug() << "Cohesion distance: " << cohesionDistance;
     qDebug() << "Alignment distance: " << alignmentDistance;
     qDebug() << "Mouse distance: " << mouseDistance;
 
-    dt = 0.002;
-    createBirds(100);
+    dt = 0.01;
+    createBirds(500);
 }
 
 
